@@ -41,6 +41,12 @@ function getSettlement(currentEvent) {
 			userBalance[userTo] -= payment.amount / payment.to.length;
 		}
 	}
+
+	// Round to cents
+	for(i in userBalance) {
+		userBalance[i] = roundCents(userBalance[i]);
+	}
+
 	console.log(JSON.stringify(userBalance));
 
 	var settlement = [];
@@ -55,19 +61,40 @@ function getSettlement(currentEvent) {
 			}
 		}
 	}
-	console.log(JSON.stringify(settlement));
 	while(!isSettled(userBalance)) {
-		//settlement.push(
-/**/return;
+		var min = null;
+		var max = null;
+		for(i in userBalance) {
+			if(min==null || userBalance[min]>userBalance[i]) {
+				min = i;
+			}
+			if(max==null || userBalance[max]<userBalance[i]) {
+				max = i;
+			}
+		}
+		var amount = Math.min(Math.abs(userBalance[min]), Math.abs(userBalance[max]));
+		settlement.push({ "from": min, "to": max, "amount": amount});
+		userBalance[min] = roundCents(userBalance[min]+amount);
+		userBalance[max] = roundCents(userBalance[max]-amount);
 	}
+	console.log(JSON.stringify(settlement));
 }
+
 function isSettled(userBalance) {
+	var allPositive = true;
+	var allNegative = true;
 	for(i in userBalance) {
-		if(userBalance[i]!=0) {
-			return false;
+		if(roundCents(userBalance[i])>0) {
+			allNegative = false;
+		} else if(roundCents(userBalance[i])<0) {
+			allPositive = false;
 		}
 	}
-	return true;
+	return allNegative || allPositive;
+}
+
+function roundCents(amount) {
+	return Math.round(amount*100)/100;
 }
 
 var anEvent = {
@@ -76,6 +103,7 @@ var anEvent = {
 		{ "from": "me", "to": ["a", "b"], "amount": 10 },
 		{ "from": "a", "to": ["a", "b"], "amount": 10 },
 		{ "from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
+		{ "from": "c", "to": ["me", "a", "b"], "amount": 10 },
 	]
 };
 getSettlement(anEvent);
