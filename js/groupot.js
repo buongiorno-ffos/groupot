@@ -5,8 +5,7 @@ function loadContacts() {
  
 		// Provide de data required by the filters of the activity
 		data: {
-			type: ["webcontacts/contact", "webcontacts/email"]
-			//type: "image/jpeg"
+			type: "webcontacts/contact"
 		}
 	});
  
@@ -21,7 +20,7 @@ function loadContacts() {
 	};
  
 	activity.onerror = function() {
-		console.log(this.error);
+		console.log(JSON.stringify(this));
 	};
 }
 
@@ -108,4 +107,4 @@ var anEvent = {
 };
 getSettlement(anEvent);
 
-//document.addEventListener("DOMContentLoaded", loadContacts);
+document.addEventListener("DOMContentLoaded", loadContacts);
