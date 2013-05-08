@@ -12,11 +12,21 @@ function loadContacts() {
 	activity.onsuccess = function() {
 		var contact = this.result;
 		console.log("A contact has been retrieved");
-		console.error(contact);
+		console.log(JSON.stringify(contact));
 		for(i in contact) {
 			console.log(i);
 			console.log(contact[i]);
 		}
+		li = document.createElement('li');
+		
+		spanText = document.createElement('span');
+		spanText.appendChild (document.createTextNode(contact["name"]));
+		spanText.className = "left";
+		
+		li.appendChild(spanText);
+
+		ul = document.getElementById('contacts');
+		ul.appendChild(li);
 	};
  
 	activity.onerror = function() {
@@ -107,4 +117,12 @@ var anEvent = {
 };
 getSettlement(anEvent);
 
-document.addEventListener("DOMContentLoaded", loadContacts);
+function addEventListeners() {
+	console.log("addEventListeners");
+	console.log(JSON.stringify(document.getElementById("add-people")));
+	document.getElementById("add-people").addEventListener("click", function() {
+		loadContacts();
+	});
+}
+
+document.addEventListener("DOMContentLoaded", addEventListeners);
