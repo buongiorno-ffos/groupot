@@ -7,7 +7,7 @@ function loadContacts() {
  
 		// Provide de data required by the filters of the activity
 		data: {
-			type: "webcontacts/contact"
+			type: "webcontacts/email"
 		}
 	});
  
