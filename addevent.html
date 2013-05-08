@@ -7,45 +7,49 @@
    <link rel="stylesheet" type="text/css" href="style/groupot.css"/>
    <link rel="stylesheet" type="text/css" href="style/fontello.css"/>
    <script type="text/javascript" src="js/fxosstub.js"></script>
-   <script type="text/javascript" src="js/events.js"></script>
    <title>GrouPot </title>
 </head>
 <body>
 
    <header>
-     <button id="btnMain"></button>
-     <ul id="add">
-         <li><a href="addevent.html"><button id="btnAdd"></button></a></li>
-     </ul>
-     <h1>GrouPot - Events</h1>
+     <a href="index.html"><button id="btnMain"></button></a>
+     
+     <h1>GrouPot - Create an event</h1>
    </header>
 
-   <div class="body">
+   <div class="body center">
       <!--<div class="textEntry">
          <textarea id="textContents" placeholder="Type it!"></textarea>
       </div>-->
-     
-      <ul id="events">
-      	<!--<li><span>Primer Evento</span><span class="icon-right-open right"></span></li>
-        <li><span>Segundo Evento</span><span class="icon-right-open right"></span></li>-->
+      
+     <span class="left">Event Name:</span><input id="eventname" type="text" placeholder="event" value="" class=""/>
+     <hr/>
+      <span class="left">Add people</span><input type="button" id="add-people" value="+" class="left"></input>
+      <div id="contacts">
+      	<ul id="contacts">
+        	<li><span class="left">Jorge,aqui van los contacts</span></li>
+            <li><span class="left">Javi</span></li>
         </ul>
+      </div>
+     <div class="clear"></div>
+    
+     <input type="submit" value="Create Event" />
     
    </div>
 
    
-   <div id="glasspane">
+  <!-- <div id="glasspane">
       <div id="title">Glass Pane Title</div>
       <div id="msg">Message in the glass pane (for notifications, etc)</div>
-   </div>
+   </div>-->
    
 
-   <!--<footer>
+    <!--<footer>
       <ul>
         <li><button>People</button></li>
         <li><button>Payments</button></li>
        
       </ul>
    </footer>-->
-
 </body>
 </html>
