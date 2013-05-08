@@ -1,3 +1,5 @@
+var contacts = [];
+
 function loadContacts() {
 	var activity = new MozActivity({
 		// Ask for the "pick" activity
@@ -27,6 +29,8 @@ function loadContacts() {
 
 		ul = document.getElementById('contacts');
 		ul.appendChild(li);
+
+		contacts.push(contact);
 	};
  
 	activity.onerror = function() {
@@ -117,12 +121,29 @@ var anEvent = {
 };
 getSettlement(anEvent);
 
+function createEvent() {
+	var name = document.getElementById("eventname").value;
+	console.log(name);
+	console.log(JSON.stringify(contacts));
+}
+
 function addEventListeners() {
-	console.log("addEventListeners");
-	console.log(JSON.stringify(document.getElementById("add-people")));
-	document.getElementById("add-people").addEventListener("click", function() {
-		loadContacts();
-	});
+	var focused = document.getElementsByClassName("focused");
+	if(focused && focused.length>0) {
+		focused[0].focus();
+	}
+	var addPeople = document.getElementById("add-people");
+	if(addPeople) {
+		addPeople.addEventListener("click", function() {
+			loadContacts();
+		});
+	}
+	var createEventElement = document.getElementById("create-event");
+	if(createEventElement) {
+		createEventElement.addEventListener("click", function() {
+			createEvent();
+		});
+	}
 }
 
 document.addEventListener("DOMContentLoaded", addEventListeners);
