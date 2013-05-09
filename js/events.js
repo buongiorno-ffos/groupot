@@ -1,25 +1,27 @@
+
+
 var Events = (function(){
 
 	var init = function(){
 	var id = setId(),ids = [];
 	var anEvent = {
 		"name": "event_test",	
-		"users": ["me", "a", "b", "c"],
+		"contacts": ["me", "a", "b", "c"],
 		"payments": [	
-			{ "from": "me", "to": ["a", "b"], "amount": 10 },
-			{ "from": "a", "to": ["a", "b"], "amount": 10 },
-			{ "from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
-			{ "from": "c", "to": ["me", "a", "b"], "amount": 10 },
+			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
+			{ "concept":"payment2","from": "a", "to": ["a", "b"], "amount": 10 },
+			{ "concept":"payment3","from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
+			{ "concept":"payment4","from": "c", "to": ["me", "a", "b"], "amount": 10 },
 		]
 	};
 	var anEvent2 = {
 		"name": "event2_test2",	
-		"users": ["me", "a", "b", "c"],
+		"contacts": ["me", "a", "b", "c"],
 		"payments": [	
-			{ "from": "me", "to": ["a", "b"], "amount": 10 },
-			{ "from": "a", "to": ["a", "b"], "amount": 10 },
-			{ "from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
-			{ "from": "c", "to": ["me", "a", "b"], "amount": 10 },
+			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
+			{ "concept":"payment2","from": "a", "to": ["a", "b"], "amount": 10 },
+			{ "concept":"payment3","from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
+			{ "concept":"paymen4","from": "c", "to": ["me", "a", "b"], "amount": 10 },
 		]
 	};	
 	setCurrentEventCollection("");
@@ -70,6 +72,7 @@ var Events = (function(){
 					
 				
 			}
+
 			/*Once loaded the events like HTMLElements within the DOM 
 			we set click events to every li representing a group event*/
 
@@ -97,24 +100,78 @@ var Events = (function(){
 
 	createEvent = function(){
 
-	//TODO 
+		var new_event,event_contacts=[],id=setId(),name;
+		name = document.getElementById("eventname").value;
+		//event_contacts = contacts; global array with the contacts object comming from the "pick"
+		event_contacts = [
+			{"name":"Javi","email":"javier.herraiz@buongiorno.com"},
+			{"name":"Jorge","email":"jorge.alvaro@buongiorno.com"}
+		];
+		new_event = {
+			"name": name,
+			"contacts" : event_contacts,
+			"payments" : []
+		};
+
+		localStorage.setItem(id,JSON.stringfy(new_event));
+		setCurrentEventCollection(id);
+		var events_ids = JSON.parse(localStorage.getItem('events'))['ids'].push(id);
+		var events = {'ids':events_ids};
+		localStorage.setItem('events',JSON.stringify(events));
 
 	},
 
 	getEventPayments = function(currentEventId){
 
 		var currentEvent = JSON.parse(localStorage.getIem(currentEventId));
+		return currentEvent['payments'];
+	},
 
-		var payments = currentEvent['payments'];
+	setEventPayments = function(currentEventId,payment){
 
-		//TODO insert into DOM 
+		var value= document.getElementById('amount').value;
+		name = document.getElementById("paymentname").value;
+
+		var select = document.getElementById("from");
+		var from = select.options[select.selectedIndex].value;
+
+		var radios = document.getElementsByName('to');
+		var rad = [];
+		for (var i = 0, length = radios.length; i < length; i++) {
+    		if (radios[i].checked) {
+    			rad.push(radios[i].value);
+        		console(radios[i].value);
+    		}
+		}
+		var new_payment = {
+			"concept": name,
+			"amount" : amount,
+			"from" : from,
+			"to": rad
+		}
+
+		var currentEvent = JSON.parse(localStorage.getItem(currentEventId));
+		currentEvent['payments'].push(new_payment);
+		localStorage.setItem(currentEventId,JSON.stringify(currentEvent));
 
 
 	},
 
-	getEVentPeople = function(){
-		//TODO retrieve currentEvent people them insert it into the DOM (summary.html people section)
+	getEventContacts = function(currentEventId){
+		
+		var currentEvent = JSON.parse(localStorage.getIem(currentEventId));
+		return currentEvent['contacts'];
 	},
+
+	setEventContacts = function(currentEventId){
+		
+		var currentEvent = JSON.parse(localStorage.getItem(currentEventId));
+		currentEvent['contacts'].push(contacts[contacts.length-1]);
+		localStorage.setItem(currentEventId,JSON.stringify(currentEvent));
+
+		
+	},
+
 	setCurrentEventCollection = function(currentEventId){
 		var currentEvent = {
 			"id": currentEventId
@@ -123,8 +180,12 @@ var Events = (function(){
 	};
 
 	return {
-		loadEvents:loadEvents,
-		createEvent : createEvent	
+		loadEvents       : loadEvents,
+		createEvent      : createEvent,
+		getEventContacts : getEventContacts,
+		getEventPayments : getEventPayments,
+		setEventContacts : setEventContacts,
+		setEventPayments : setEventPayments
 	}				
 })();
 
