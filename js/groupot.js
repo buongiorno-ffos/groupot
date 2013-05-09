@@ -218,7 +218,7 @@ function addEventListeners() {
 	var createEventElement = document.getElementById("create-event");
 	if(createEventElement) {
 		createEventElement.addEventListener("click", function() {
-			createEvent();
+			Events.createEvent();
 		});
 	}
 }

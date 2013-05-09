@@ -8,7 +8,7 @@ html, body, button {
 }
 
 header {
-  background-color: #0095dd;
+  background-color: #e66000;
   color: #FFFFFF;
   height: 4.9rem;
   position: relative;
@@ -16,7 +16,7 @@ header {
 }
 
 header #btnMain {
-  background: #00539f url(images/back.png) no-repeat -0.5rem center;
+  background: #e66000 url(images/back.png) no-repeat -0.5rem center;
   position: absolute;
   left: 0;
   width: 2rem;
@@ -176,7 +176,7 @@ footer li {
   /* background: url("images/separator.png") no-repeat scroll left top; */
   float: left;
   border-right: 1px solid #445;
-  width: 49%;
+  width: 49.7%;
   height: 100%;
   list-style: none;
   margin: 0;

@@ -5,7 +5,7 @@ var Events = (function(){
 	var init = function(){
 	var id = setId(),ids = [];
 	var anEvent = {
-		"name": "event_test",	
+		"name": "event1",	
 		"contacts": ["me", "a", "b", "c"],
 		"payments": [	
 			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
@@ -15,7 +15,7 @@ var Events = (function(){
 		]
 	};
 	var anEvent2 = {
-		"name": "event2_test2",	
+		"name": "event2",	
 		"contacts": ["me", "a", "b", "c"],
 		"payments": [	
 			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
@@ -44,13 +44,16 @@ var Events = (function(){
 		var li,ul,spanText,spanArrow;
 
 		//TODO: remove init() when createEvent is implemented
-		init();
+		//init();
+		console.log('loadEvents method');
 		if(!!localStorage.getItem('events')) {
 			var events = JSON.parse(localStorage.getItem('events'));
+			console.log("event"  + localStorage.getItem('events'));
 			var ids = events['ids'];
+
 			for(var i = 0; i < ids.length;i++){
 				li = document.createElement('li');
-				
+				console.log("Ids en el bucle" + ids[i]);
 				spanText = document.createElement('span');
 				spanText.appendChild (document.createTextNode(JSON.parse(localStorage.getItem(ids[i]))['name']));
 				
@@ -65,7 +68,7 @@ var Events = (function(){
 				li.appendChild(spanArrow);
 				li.appendChild(inputId);
 
-				ul= document.getElementById('events');
+				ul = document.getElementById('events');
 				ul.appendChild(li);
 
 				console.log("grouping events loaded within DOM");
@@ -88,35 +91,53 @@ var Events = (function(){
 		           			setCurrentEventCollection(children[j].value);
 		           			console.log("LS-CurrentEventIdCollection:" + localStorage.getItem('currentEvent'));
 		           			console.log("LS-EntireEvent:" + localStorage.getItem(children[j].value));
-		           //TODO redirect to summary.html page (payments section)
+		           			document.location.href = '/summary.html';
 		        		}
 		      		}
 		    	});
 			}
 		} else {
-			return false;
+
+			ul = document.getElementById('events');
+			li = document.createElement('li');
+			spanText =document.createElement('span');
+			spanText.appendChild(document.createTextNode('Start creating your events'));
+			li.appendChild(spanText);
+			ul.appendChild(li);
 		}
 	},
 
 	createEvent = function(){
-
-		var new_event,event_contacts=[],id=setId(),name;
+		console.log('Fired createEvent method');
+		var new_event,event_contacts=[],id=setId(),name,events_ids;
 		name = document.getElementById("eventname").value;
-		//event_contacts = contacts; global array with the contacts object comming from the "pick"
-		event_contacts = [
+		event_contacts = contacts; //global array with the contacts object comming from the "pick"
+		/*event_contacts = [
 			{"name":"Javi","email":"javier.herraiz@buongiorno.com"},
 			{"name":"Jorge","email":"jorge.alvaro@buongiorno.com"}
-		];
+		];*/
 		new_event = {
 			"name": name,
 			"contacts" : event_contacts,
 			"payments" : []
 		};
 
-		localStorage.setItem(id,JSON.stringfy(new_event));
+		localStorage.setItem(id,JSON.stringify(new_event));
+		console.log("new event created:" + localStorage.getItem(id) + "with id :" + id);
 		setCurrentEventCollection(id);
-		var events_ids = JSON.parse(localStorage.getItem('events'))['ids'].push(id);
+
+		if(localStorage.getItem('events')){
+			console.log("Habia eventos");
+			events_ids = JSON.parse(localStorage.getItem('events'))['ids'];
+		} else {
+
+			localStorage.setItem('events',JSON.stringify({'ids':[]}));
+			events_ids = [];
+			console.log("No habia eventos");
+		}
+		events_ids.push(id);
 		var events = {'ids':events_ids};
+		console.log("The activated events are:" + JSON.stringify(events));
 		localStorage.setItem('events',JSON.stringify(events));
 
 	},
@@ -189,4 +210,3 @@ var Events = (function(){
 	}				
 })();
 
-document.addEventListener("DOMContentLoaded", Events.loadEvents);

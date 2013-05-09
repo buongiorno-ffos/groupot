@@ -1,39 +1,53 @@
 
-ul#events,ul#contacts {
-  margin: 0px;
+ul#events,ul#contacts,ul#payments,ul#people {
+  margin: 2rem 0 2rem 0;
   padding: 0px;
   float: left;
   width:100%;
   min-width: 12rem;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 4px;
+border-radius: 4px;
+ 
+  border:1px solid #ccc;
+  
 }
 
-ul#events li,ul#contacts li {
+ul#events li,ul#contacts li,ul#payments li,ul#people li {
   list-style: none;
   min-width: 6rem;
   width: auto;
   height: 100%;
-  border-bottom:1px solid #0095dd;
+  border-bottom:1px solid #ccc;
   padding:1rem 0 1rem 1.5rem;
-  color:#0095dd;
+  color:#000;
+
 }
 
-ul#events li span,ul#contacts li span {
+ul#events li span,ul#contacts li span,ul#payments li span,ul#people li span {
   text-align: left;
   font-family: "Open Sans",Sans-serif;
   font-size: 1.7rem;
-  color:#0095dd;
+  color:#333;
 }
 
 
-ul#events li:last-child,ul#contacts li:last-child{
+ul#events li:last-child,ul#contacts li:last-child,ul#payments li:last-child,ul#people li:last-child{
   border-bottom:none;
 }
 
-ul#events li:before,ul#contacts li:before{
+ul#events li:before,ul#contacts li:before,ul#payments li:before,ul#people li:before{
 content:"- ";
 color:#0095dd;
 
 }
+ul#events li:nth-child(odd),ul#contacts li:nth-child(odd),ul#payments li:nth-child(odd),ul#people li:nth-child(odd) {
+    background-color: white;   
+}
+ul#events li:nth-child(even),ul#contacts li:nth-child(even),ul#payments li:nth-child(even),ul#people li:nth-child(even) {
+    background-color: #e3e3e3;   
+}
+
 .center{
 	margin:auto;
 	text-align:center;
@@ -66,16 +80,21 @@ input[type="text"] {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
-
-input[type="submit"] {
+.line{
+	display:block;
+}
+a#create-event,a#create-payment,a#add-contact {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 2em;
-	margin: 3rem 0 0 0;
-	padding: 5px 0;
+	margin: 5rem 0 0 0;
+	padding: 5px 5px 5px 5px;
 	width: 45%;
 	color: #fff;
-	background:#0095dd;
+	background:#e66000;
 	border: 0;
+	text-decoration: none;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 	
 	
 }
@@ -87,7 +106,7 @@ input[type="text"]:-moz-placeholder, input[type="password"]:-moz-placeholder {
 
 span{
 	font-size: 1.7rem;
-	color:#0095dd;
+	color:#000;
 }
 
 input[type="button"]{
@@ -96,7 +115,7 @@ input[type="button"]{
 	font-size: 1.4rem;
 	padding: 1px 6px 0 6px;
 	color: #fff;
-	background:#0095dd;
+	background:#e66000;
 	border: 0;
 	
 }
@@ -115,4 +134,18 @@ hr{
 	text-align:center;
 	padding:5px 0px 0px 5px;
 	font-weight:normal;
+}
+.amount{
+
+	margin:0 3rem 0 0;
+}
+.fromto{
+	font-style: italic;
+	color:#333;
+	font-size:0.3rem;
+
+}
+.concept{
+	font-size:1.5rem;
+	font-weight: bold;
 }
