@@ -242,7 +242,7 @@ var Events = (function(){
 	},
 
 	getCurrentEvent = function(){
-		var id= JSON.parse(localStorage).getItem("currentEvent"))['id'];
+		var id= JSON.parse(localStorage.getItem("currentEvent"))['id'];
 		return JSON.parse(localStorage.getItem(id));
 	},
 
