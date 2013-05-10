@@ -21,6 +21,7 @@ ul#events li,ul#contacts li,ul.contacts li,ul#payments li,ul#people li {
   border-bottom:1px solid #ccc;
   padding:1rem 0 1rem 1.5rem;
   color:#000;
+  display:block;
 
 }
 
@@ -83,7 +84,7 @@ input[type="text"] {
 .line{
 	display:block;
 }
-a#create-event,a#create-payment,a#add-contact {
+a#create-event,a#create-payment,a#add-contact,a#save-payment {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 2em;
 	margin: 5rem 0 0 0;

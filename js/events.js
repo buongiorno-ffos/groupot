@@ -45,7 +45,7 @@ var Events = (function(){
 		var li,ul,spanText,spanArrow;
 
 		//TODO: remove init() when createEvent is implemented
-		init();
+		//init();
 		console.log('loadEvents method');
 		if(!!localStorage.getItem('events')) {
 			var events = JSON.parse(localStorage.getItem('events'));
