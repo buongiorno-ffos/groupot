@@ -1,4 +1,4 @@
-var contacts = [{"name":"me"}];
+var contacts = [{"name":["me"]}];
 
 function loadContacts() {
 	var activity = new MozActivity({
@@ -116,37 +116,6 @@ function roundCents(amount) {
 	return Math.round(amount*100)/100;
 }
 
-var anEvent = {
-	"users": ["me", "a", "b", "c"],
-	"payments": [
-		{ "from": "me", "to": ["a", "b"], "amount": 10 },
-		{ "from": "a", "to": ["a", "b"], "amount": 10 },
-		{ "from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
-		{ "from": "c", "to": ["me", "a", "b"], "amount": 10 },
-	]
-};
-getSettlement(anEvent);
-
-function createEvent() {
-	var name = document.getElementById("eventname").value;
-	console.log(name);
-	console.log(JSON.stringify(contacts));
-
-	var event = {
-		"name": name,
-		//"contacts": contacts,
-		"contacts": ["me", "a", "b", "c"],
-		"payments": [
-			{ "from": "me", "to": ["a", "b"], "amount": 10, "name": "gas" },
-			{ "from": "a", "to": ["a", "b"], "amount": 10, "name": "food" }
-		]
-	};
-	// ToDo
-	// save event
-	// go to event page
-	sendEventByEmail(event);
-}
-
 function sendEventByEmail(event) {
 	var to = "";
 	for(contactId in event.contacts) {
@@ -204,6 +173,40 @@ function sendEventByEmail(event) {
 	}
 }
 
+function addPayment() {
+	var name = document.getElementById("eventname").value;
+}
+
+function initForms() {
+	var event = Events.getCurrentEvent();
+
+	var paymentFrom = document.getElementById("from");
+	var contactsForEvent = document.getElementById("contacts-for-payment");
+
+	for(contactId in event.contacts) {
+		var contact = event.contacts[contactId];
+		console.log(JSON.stringify(contact));
+
+		// To
+		var li = document.createElement('li');
+		var spanText = document.createElement('span');
+		spanText.appendChild (document.createTextNode(contact["name"]));
+		spanText.className = "left";
+		contactsForEvent.appendChild(li);
+		var checkbox = document.createElement('input');
+		checkbox.id = contact["name"];
+		checkbox.type = "checkbox";
+		checkbox.name = contact["name"];
+		checkbox.checked = true;
+		checkbox.className = "right";
+		li.appendChild(spanText);
+		spanText.appendChild(checkbox);
+
+		// From
+		paymentFrom.options[paymentFrom.options.length] = new Option(contact["name"], contact["name"]);
+	}
+}
+
 function addEventListeners() {
 	var focused = document.getElementsByClassName("focused");
 	if(focused && focused.length>0) {
@@ -221,6 +224,13 @@ function addEventListeners() {
 			Events.createEvent();
 		});
 	}
+	var addPaymentElement = document.getElementById("save-payment");
+	if(addPaymentElement) {
+		addPaymentElement.addEventListener("click", function() {
+			Events.setEventPayments();
+		});
+	}
+	initForms();
 }
 
 document.addEventListener("DOMContentLoaded", addEventListeners);

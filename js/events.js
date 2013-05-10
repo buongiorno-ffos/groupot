@@ -5,9 +5,9 @@ var Events = (function(){
 	var init = function(){
 	var id = setId(),ids = [];
 	var anEvent = {
-		"name": "event1",	
+		"name": "event1",
 		"contacts": ["me", "a", "b", "c"],
-		"payments": [	
+		"payments": [
 			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
 			{ "concept":"payment2","from": "a", "to": ["a", "b"], "amount": 10 },
 			{ "concept":"payment3","from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
@@ -15,15 +15,15 @@ var Events = (function(){
 		]
 	};
 	var anEvent2 = {
-		"name": "event2",	
+		"name": "event2",
 		"contacts": ["me", "a", "b", "c"],
-		"payments": [	
+		"payments": [
 			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
 			{ "concept":"payment2","from": "a", "to": ["a", "b"], "amount": 10 },
 			{ "concept":"payment3","from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
 			{ "concept":"paymen4","from": "c", "to": ["me", "a", "b"], "amount": 10 },
 		]
-	};	
+	};
 	setCurrentEventCollection("");
 	localStorage.setItem(id,JSON.stringify(anEvent));
 	ids.push(id);
@@ -56,14 +56,14 @@ var Events = (function(){
 				console.log("Ids en el bucle" + ids[i]);
 				spanText = document.createElement('span');
 				spanText.appendChild (document.createTextNode(JSON.parse(localStorage.getItem(ids[i]))['name']));
-				
-				spanArrow = document.createElement('span');											  
+
+				spanArrow = document.createElement('span');
 				spanArrow.className ="icon-right-open right";
 
 				inputId = document.createElement('input');
 				inputId.type="hidden";
 				inputId.value=ids[i];
-				
+
 				li.appendChild(spanText);
 				li.appendChild(spanArrow);
 				li.appendChild(inputId);
@@ -72,18 +72,18 @@ var Events = (function(){
 				ul.appendChild(li);
 
 				console.log("grouping events loaded within DOM");
-					
-				
+
+
 			}
 
-			/*Once loaded the events like HTMLElements within the DOM 
+			/*Once loaded the events like HTMLElements within the DOM
 			we set click events to every li representing a group event*/
 
 			var lis = document.getElementsByTagName('li');
 
 			for(var i = 0 ; i < lis.length;i++){
 		    	lis[i].addEventListener('click',function(ev){
-		      		var children = ev.currentTarget.children;			      
+		      		var children = ev.currentTarget.children;
 		      		for (var j = 0; j < children.length; j++) {
 		        		if (children[j].tagName == "INPUT") {
 		        			console.log("currentEventId:" + children[j].value);
@@ -120,9 +120,9 @@ var Events = (function(){
          </li>
 
          var anEvent = {
-		"name": "event1",	
+		"name": "event1",
 		"contacts": ["me", "a", "b", "c"],
-		"payments": [	
+		"payments": [
 			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
 			{ "concept":"payment2","from": "a", "to": ["a", "b"], "amount": 10 },
 			{ "concept":"payment3","from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
@@ -151,7 +151,7 @@ var Events = (function(){
 
 
 		}
-		
+
 
 	},
 
@@ -196,49 +196,52 @@ var Events = (function(){
 		return currentEvent['payments'];
 	},
 
-	setEventPayments = function(currentEventId,payment){
+	setEventPayments = function(){
 
-		var value= document.getElementById('amount').value;
-		name = document.getElementById("paymentname").value;
+		var currentEvent = getCurrentEvent();
+
+		var value = document.getElementById('amount').value;
+		var name = document.getElementById("paymentname").value;
 
 		var select = document.getElementById("from");
 		var from = select.options[select.selectedIndex].value;
 
-		var radios = document.getElementsByName('to');
-		var rad = [];
-		for (var i = 0, length = radios.length; i < length; i++) {
-    		if (radios[i].checked) {
-    			rad.push(radios[i].value);
-        		console(radios[i].value);
-    		}
+		var to = [];
+		for(contactId in currentEvent.contacts) {
+			var contact = currentEvent.contacts[contactId];
+			if(document.getElementById(contact.name).checked) {
+				console.log("pushing "+contact.name);
+				to.push(contact.name[0]);
+			}
+			console.log(JSON.stringify(to));
 		}
+
 		var new_payment = {
 			"concept": name,
-			"amount" : amount,
+			"amount" : value,
 			"from" : from,
-			"to": rad
+			"to": to
 		}
 
-		var currentEvent = JSON.parse(localStorage.getItem(currentEventId));
 		currentEvent['payments'].push(new_payment);
-		localStorage.setItem(currentEventId,JSON.stringify(currentEvent));
+		localStorage.setItem(JSON.parse(localStorage.getItem("currentEvent"))['id'],JSON.stringify(currentEvent));
 
-
+		console.log(JSON.stringify(getCurrentEvent()));
 	},
 
 	getEventContacts = function(currentEventId){
-		
+
 		var currentEvent = JSON.parse(localStorage.getIem(currentEventId));
 		return currentEvent['contacts'];
 	},
 
 	setEventContacts = function(currentEventId){
-		
+
 		var currentEvent = JSON.parse(localStorage.getItem(currentEventId));
 		currentEvent['contacts'].push(contacts[contacts.length-1]);
 		localStorage.setItem(currentEventId,JSON.stringify(currentEvent));
 
-		
+
 	},
 
 	getCurrentEvent = function(){
@@ -261,6 +264,6 @@ var Events = (function(){
 		setEventContacts : setEventContacts,
 		setEventPayments : setEventPayments,
 		getCurrentEvent  : getCurrentEvent
-	}				
+	}
 })();
 

@@ -7,6 +7,8 @@
    <link rel="stylesheet" type="text/css" href="style/groupot.css"/>
    <link rel="stylesheet" type="text/css" href="style/fontello.css"/>
    <script type="text/javascript" src="js/fxosstub.js"></script>
+   <script type="text/javascript" src="js/events.js"></script>
+   <script type="text/javascript" src="js/groupot.js"></script>
    <title>GrouPot </title>
 </head>
 <body>
@@ -14,32 +16,33 @@
    <header>
      <button id="btnMain"></button>
      <ul id="add">
-         <li><a href="addevent.html"><button id="btnAdd"></button></a></li>
+         <li><a href="addevent.html"><button id="btnAddPayment"></button></a></li>
      </ul>
-     <h1>GrouPot - Summary</h1>
+     <h1>GrouPot - Add payment</h1>
    </header>
 
    <div class="body">
       <!--<div class="textEntry">
          <textarea id="textContents" placeholder="Type it!"></textarea>
       </div>-->
-     
-      <ul id="payments">
-       	<span class="left">Payment concept:</span><input id="paymentname" type="text" placeholder="concept" value="" class="focused"/>
-     <hr/>
 
-      <span class="left">New payment</span><input type="button" id="add-payment" value="+" class="left"></input>
+      <span class="left">Amount:</span><input id="amount" type="text" placeholder="amount" value="" class="focused"/>
+
+     	<span class="left">Concept:</span><input id="paymentname" type="text" placeholder="concept" value=""/>
+
+      <span class="left">From</span><select id="from"><option>Who paid?</option></select>
+
+      <span class="left">For</span>
+
       <div id="contacts-wrapper">
-        <ul id="contacts">
-          <li><span class="left">me</span></li>
+        <ul id="contacts-for-payment" class="contacts">
         </ul>
       </div>
      <div class="clear"></div>
-    
-     <input type="submit" id="create-event" value="Create Event" />
-      </ul>
 
-        <ul id="people">
+     <input type="submit" id="save-payment" value="Save" />
+
+      <!--ul id="people">
           <hr/>
       <span class="left">Add people</span><input type="button" id="add-people" value="+" class="left"></input>
       <div id="contacts-wrapper">
@@ -48,8 +51,8 @@
         </ul>
       </div>
      <div class="clear"></div>
-        </ul>
-    
+        </ul-->
+
    </div>
 
 
