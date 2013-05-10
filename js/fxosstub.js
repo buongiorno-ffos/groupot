@@ -154,6 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
    setInstallButton("btnInstall");
    var buttons = document.querySelectorAll("footer li");
    for (var i=0, l=buttons.length; i<l; i++) {
-      buttons[i].addEventListener("click", activate);
+      //buttons[i].addEventListener("click", activate);
    };
 });

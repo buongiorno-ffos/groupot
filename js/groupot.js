@@ -248,9 +248,31 @@ function addEventListeners() {
 			Events.setEventPayments();
 		});
 	}
-	initForms();
-	
 
+	var buttonPayments = document.getElementById("buttonpayments");
+	if(buttonPayments) {
+		buttonPayments.addEventListener("click", function() {
+			selectTab("payments");
+		});
+	} else { console.log("no button payment"); }
+	var buttonPeople = document.getElementById("buttonpeople");
+	if(buttonPeople) {
+		buttonPeople.addEventListener("click", function() {
+			selectTab("people");
+		});
+	}
+
+	initForms();
+}
+
+function selectTab(tab) {
+	console.log("Select tab "+tab);
+	if(document.getElementById("divpeople")) document.getElementById("divpeople").className = "none";
+	if(document.getElementById("divpayments")) document.getElementById("divpayments").className = "none";
+	if(document.getElementById("buttonpeople")) document.getElementById("buttonpeople").className = "";
+	if(document.getElementById("buttonpayments")) document.getElementById("buttonpayments").className = "";
+	document.getElementById("div"+tab).className = "";
+	document.getElementById("button"+tab).className = "activated";
 }
 
 document.addEventListener("DOMContentLoaded", addEventListeners);
