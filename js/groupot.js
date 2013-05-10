@@ -1,4 +1,4 @@
-var contacts = [];
+var contacts = [{"name":"me"}];
 
 function loadContacts() {
 	var activity = new MozActivity({

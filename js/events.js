@@ -107,6 +107,54 @@ var Events = (function(){
 		}
 	},
 
+	loadPyaments = function(){
+
+		var currentEvent = getCurrentEvent(),
+			li,ul,spanConcept,spanAmount,spanFrom,spanTo,
+		    payments = currentEvent['payments'];
+		/*<li>	<span class="left concept">Car rental</span>
+              <span class="right amount"> 200&euro;</span>
+              <span class="fromto line clear">From: Me</span>
+              <span class="fromto line">To: Javi,Jorge</span>
+
+         </li>
+
+         var anEvent = {
+		"name": "event1",	
+		"contacts": ["me", "a", "b", "c"],
+		"payments": [	
+			{ "concept":"payment","from": "me", "to": ["a", "b"], "amount": 10 },
+			{ "concept":"payment2","from": "a", "to": ["a", "b"], "amount": 10 },
+			{ "concept":"payment3","from": "c", "to": ["me", "a", "b", "c"], "amount": 20 },
+			{ "concept":"payment4","from": "c", "to": ["me", "a", "b"], "amount": 10 },
+		]
+	};
+		*/
+		for (var i =0; i < payments.length -1 ; i++){
+
+			li = document.createElement('li');
+			spanConcept = document.createElement('span');
+			spanConcept.appendChild(document.createTextNode(payments[i]['concept']));
+
+			spanAmount = document.createElement('span');
+			spanAmount.appendChild(document.createTextNode(payments[i]['amount']));
+
+			spanAmount = document.createElement('span');
+			spanAmount.appendChild(document.createTextNode(payments[i]['amount']));
+
+			spanFrom = document.createElement('span');
+			spanFrom.appendChild(document.createTextNode(payments[i]['from']));
+
+			spanTo = document.createElement('span');
+			spanTo.appendChild(document.createTextNode(payments[i]['from']));
+
+
+
+		}
+		
+
+	},
+
 	createEvent = function(){
 		console.log('Fired createEvent method');
 		var new_event,event_contacts=[],id=setId(),name,events_ids;
@@ -193,6 +241,11 @@ var Events = (function(){
 		
 	},
 
+	getCurrentEvent = function(){
+		var id= JSON.parse(localStorage).getItem("currentEvent"))['id'];
+		return JSON.parse(localStorage.getItem(id));
+	},
+
 	setCurrentEventCollection = function(currentEventId){
 		var currentEvent = {
 			"id": currentEventId
@@ -206,7 +259,8 @@ var Events = (function(){
 		getEventContacts : getEventContacts,
 		getEventPayments : getEventPayments,
 		setEventContacts : setEventContacts,
-		setEventPayments : setEventPayments
+		setEventPayments : setEventPayments,
+		getCurrentEvent  : getCurrentEvent
 	}				
 })();
 
