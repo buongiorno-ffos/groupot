@@ -1,5 +1,6 @@
 var contacts = [{"name":["me"]}];
 
+
 function loadContacts() {
 	var activity = new MozActivity({
 		// Ask for the "pick" activity
@@ -218,12 +219,26 @@ function addEventListeners() {
 			loadContacts();
 		});
 	}
+
+	var addPayment = document.getElementById("add-payment");
+	if(addPayment) {
+		addPayment.addEventListener("click", function() {
+			document.location.href="/addpayment.html";
+		});
+	}
+
 	var createEventElement = document.getElementById("create-event");
 	if(createEventElement) {
 		createEventElement.addEventListener("click", function() {
 			Events.createEvent();
 		});
 	}
+
+	var infoposition = document.getElementById('infoposition');
+	if(infoposition){
+		Events.loadPayments();
+	}
+
 	var addPaymentElement = document.getElementById("save-payment");
 	if(addPaymentElement) {
 		addPaymentElement.addEventListener("click", function() {
@@ -231,6 +246,8 @@ function addEventListeners() {
 		});
 	}
 	initForms();
+	
+
 }
 
 document.addEventListener("DOMContentLoaded", addEventListeners);

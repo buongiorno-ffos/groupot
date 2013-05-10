@@ -6,7 +6,6 @@
    <link rel="stylesheet" type="text/css" href="style/fxosstub.css"/>
    <link rel="stylesheet" type="text/css" href="style/groupot.css"/>
    <link rel="stylesheet" type="text/css" href="style/fontello.css"/>
-   <script type="text/javascript" src="js/fxosstub.js"></script>
    <title>GrouPot </title>
 </head>
 <body>
@@ -21,14 +20,14 @@
       <!--<div class="textEntry">
          <textarea id="textContents" placeholder="Type it!"></textarea>
       </div>-->
-      <div id="infoposition">
-      <div id="divpayments">
+      <div id="infoposition" style="border:0.1rem solid red">
+      <div id="divpayments" style="border:0.1rem solid red">
       <span class="left">New payment</span><input type="button" id="add-payment" value="+" class="left"></input>
       <span class="line"></span>
      
      
         <ul id="payments">
-         <li>	<span class="left concept">Car rental</span>
+         <!--<li>	<span class="left concept">Car rental</span>
               <span class="right amount"> 200&euro;</span>
               <span class="fromto line clear">From: Me</span>
               <span class="fromto line">To: Javi,Jorge</span>
@@ -39,13 +38,11 @@
               <span class="fromto line clear">From: Javi</span>
               <span class="fromto line">To: me,Jorge</span>
 
-         </li>
+         </li>-->
        </ul>
        
-       
-        
-        <div class="clear"></div>
      </div>
+    
       
 
       
@@ -69,6 +66,7 @@
         </div>
     
    </div>
+   <div class="clear"></div>
  </div>
 
 
@@ -78,6 +76,8 @@
         <li><button>Payments</button></li>
       </ul>
    </footer>
-
+<script type="text/javascript" src="js/fxosstub.js"></script>
+<script type="text/javascript" src="js/events.js"></script>
+<script type="text/javascript" src="js/groupot.js"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 var Events = (function(){
 
 	var init = function(){
+		localStorage.clear();
 	var id = setId(),ids = [];
 	var anEvent = {
 		"name": "event1",
@@ -44,7 +45,7 @@ var Events = (function(){
 		var li,ul,spanText,spanArrow;
 
 		//TODO: remove init() when createEvent is implemented
-		//init();
+		init();
 		console.log('loadEvents method');
 		if(!!localStorage.getItem('events')) {
 			var events = JSON.parse(localStorage.getItem('events'));
@@ -107,7 +108,7 @@ var Events = (function(){
 		}
 	},
 
-	loadPyaments = function(){
+	loadPayments = function(){
 
 		var currentEvent = getCurrentEvent(),
 			li,ul,spanConcept,spanAmount,spanFrom,spanTo,
@@ -130,25 +131,38 @@ var Events = (function(){
 		]
 	};
 		*/
+		ul = document.getElementById('payments');
+
 		for (var i =0; i < payments.length -1 ; i++){
 
 			li = document.createElement('li');
 			spanConcept = document.createElement('span');
 			spanConcept.appendChild(document.createTextNode(payments[i]['concept']));
+			spanConcept.className ="left concept";
 
 			spanAmount = document.createElement('span');
 			spanAmount.appendChild(document.createTextNode(payments[i]['amount']));
+			spanAmount.className ="right amount";
 
-			spanAmount = document.createElement('span');
-			spanAmount.appendChild(document.createTextNode(payments[i]['amount']));
 
 			spanFrom = document.createElement('span');
-			spanFrom.appendChild(document.createTextNode(payments[i]['from']));
+			spanFrom.appendChild(document.createTextNode("From: " +  payments[i]['from']));
+			spanFrom.className ="fromto line clear";
+
+			var to = payments[i]['to'],toStr="";
+
+			toStr = to.join(', ');
 
 			spanTo = document.createElement('span');
-			spanTo.appendChild(document.createTextNode(payments[i]['from']));
+			spanTo.appendChild(document.createTextNode("To: " + toStr));
+			spanTo.className ="fromto line";
 
+			li.appendChild(spanConcept);
+			li.appendChild(spanAmount);
+			li.appendChild(spanFrom);
+			li.appendChild(spanTo);
 
+			ul.appendChild(li);
 
 		}
 
@@ -258,6 +272,7 @@ var Events = (function(){
 
 	return {
 		loadEvents       : loadEvents,
+		loadPayments     : loadPayments,
 		createEvent      : createEvent,
 		getEventContacts : getEventContacts,
 		getEventPayments : getEventPayments,

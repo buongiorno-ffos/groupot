@@ -1,5 +1,5 @@
 
-ul#events,ul#contacts,ul#payments,ul#people {
+ul#events,ul#contacts,ul.contacts,ul#payments,ul#people {
   margin: 2rem 0 2rem 0;
   padding: 0px;
   float: left;
@@ -13,7 +13,7 @@ border-radius: 4px;
   
 }
 
-ul#events li,ul#contacts li,ul#payments li,ul#people li {
+ul#events li,ul#contacts li,ul.contacts li,ul#payments li,ul#people li {
   list-style: none;
   min-width: 6rem;
   width: auto;
@@ -24,7 +24,7 @@ ul#events li,ul#contacts li,ul#payments li,ul#people li {
 
 }
 
-ul#events li span,ul#contacts li span,ul#payments li span,ul#people li span {
+ul#events li span,ul#contacts li span,ul.contacts li span,ul#payments li span,ul#people li span {
   text-align: left;
   font-family: "Open Sans",Sans-serif;
   font-size: 1.7rem;
@@ -32,19 +32,19 @@ ul#events li span,ul#contacts li span,ul#payments li span,ul#people li span {
 }
 
 
-ul#events li:last-child,ul#contacts li:last-child,ul#payments li:last-child,ul#people li:last-child{
+ul#events li:last-child,ul#contacts li:last-child,ul.contacts li:last-child,ul#payments li:last-child,ul#people li:last-child{
   border-bottom:none;
 }
 
-ul#events li:before,ul#contacts li:before,ul#payments li:before,ul#people li:before{
+ul#events li:before,ul#contacts li:before,ul.contacts li:before,ul#payments li:before,ul#people li:before{
 content:"- ";
 color:#0095dd;
 
 }
-ul#events li:nth-child(odd),ul#contacts li:nth-child(odd),ul#payments li:nth-child(odd),ul#people li:nth-child(odd) {
+ul#events li:nth-child(odd),ul#contacts li:nth-child(odd),ul.contacts li:nth-child(odd),ul#payments li:nth-child(odd),ul#people li:nth-child(odd) {
     background-color: white;   
 }
-ul#events li:nth-child(even),ul#contacts li:nth-child(even),ul#payments li:nth-child(even),ul#people li:nth-child(even) {
+ul#events li:nth-child(even),ul#contacts li:nth-child(even),ul.contacts li:nth-child(even),ul#payments li:nth-child(even),ul#people li:nth-child(even) {
     background-color: #e3e3e3;   
 }
 
@@ -151,6 +151,7 @@ hr{
 }
 #infoposition{
 	position:relative;
+	width:100%;
 }
 #divpayments,#divpeople{
 
