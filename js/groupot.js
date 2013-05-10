@@ -181,30 +181,33 @@ function addPayment() {
 function initForms() {
 	var event = Events.getCurrentEvent();
 
-	var paymentFrom = document.getElementById("from");
 	var contactsForEvent = document.getElementById("contacts-for-payment");
 
-	for(contactId in event.contacts) {
-		var contact = event.contacts[contactId];
-		console.log(JSON.stringify(contact));
+	if(contactsForEvent) {
+		var paymentFrom = document.getElementById("from");
 
-		// To
-		var li = document.createElement('li');
-		var spanText = document.createElement('span');
-		spanText.appendChild (document.createTextNode(contact["name"]));
-		spanText.className = "left";
-		contactsForEvent.appendChild(li);
-		var checkbox = document.createElement('input');
-		checkbox.id = contact["name"];
-		checkbox.type = "checkbox";
-		checkbox.name = contact["name"];
-		checkbox.checked = true;
-		checkbox.className = "right";
-		li.appendChild(spanText);
-		spanText.appendChild(checkbox);
+		for(contactId in event.contacts) {
+			var contact = event.contacts[contactId];
+			console.log(JSON.stringify(contact));
 
-		// From
-		paymentFrom.options[paymentFrom.options.length] = new Option(contact["name"], contact["name"]);
+			// To
+			var li = document.createElement('li');
+			var spanText = document.createElement('span');
+			spanText.appendChild (document.createTextNode(contact["name"]));
+			spanText.className = "left";
+			contactsForEvent.appendChild(li);
+			var checkbox = document.createElement('input');
+			checkbox.id = contact["name"];
+			checkbox.type = "checkbox";
+			checkbox.name = contact["name"];
+			checkbox.checked = true;
+			checkbox.className = "right";
+			li.appendChild(spanText);
+			spanText.appendChild(checkbox);
+
+			// From
+			paymentFrom.options[paymentFrom.options.length] = new Option(contact["name"], contact["name"]);
+		}
 	}
 }
 

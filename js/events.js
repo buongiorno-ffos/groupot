@@ -230,6 +230,19 @@ var Events = (function(){
 			console.log(JSON.stringify(to));
 		}
 
+		if(value == "") {
+			alert("What was the amount?");
+			return;
+		}
+		if(from == "") {
+			alert("Who paid?");
+			return;
+		}
+		if(to.length == 0) {
+			alert("Who was the payment for?");
+			return;
+		}
+
 		var new_payment = {
 			"concept": name,
 			"amount" : value,
@@ -240,7 +253,9 @@ var Events = (function(){
 		currentEvent['payments'].push(new_payment);
 		localStorage.setItem(JSON.parse(localStorage.getItem("currentEvent"))['id'],JSON.stringify(currentEvent));
 
-		console.log(JSON.stringify(getCurrentEvent()));
+		console.log("Payment added: " + JSON.stringify(getCurrentEvent()));
+
+		document.location.href = "/summary.html";
 	},
 
 	getEventContacts = function(currentEventId){
